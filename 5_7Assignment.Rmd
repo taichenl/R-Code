@@ -1,0 +1,67 @@
+---
+title: "5/7 Assignment"
+author: "Jason Li"
+date: "5/11/2020"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Write a function to construct a confidence interval for a proportion. It should take arguments, p,
+n, and a, where p is the sample proportion, n is the sample size, and a is the confidence level of
+the test.**
+
+```{r}
+a = function(p, n, a){
+  SE = sqrt(p*(1- p)/n)
+  E = -qnorm(a/2)*SE
+  c(p - E, p + E) 
+}
+a(5/24, 24, 0.05)
+```
+
+**(a) Use the ”ifelse” function to add a column of 1’s and 0’s to the data set, 1 for flights with number of passengers less than or equal to 315.**
+
+```{r}
+library(MASS)
+a = ifelse(AirPassengers<=315, 1, 0)
+table(a)
+```
+
+**(b) Use the column from part (a) to test the claim that the proportion of flights that include 315
+passengers or less is 0.50. State the null and alternative hypotheses, results of test, and decision
+you make.**
+
+H0 x = 0.5;
+Ha x != 0.5
+Since p is close to Zero, I conclude that we reject the null hypothesis.
+
+```{r}
+y = 52
+n = 144
+Test =prop.test(y, n, p = 0.5, alternative = "two.sided", correct = FALSE)
+Test
+```
+
+**(c) Find the 95% confidence interval for the proportion.**
+
+```{r}
+Test$conf.int
+```
+
+**(d)Now, test the claim that the mean number of passengers is 315. State the null and alternative
+hypotheses, results of test, and decision you make. h0: mean = 0; ha: mean != 0;** 
+
+Since the mean that I calculated below is not equal to 315, thus we reject the hypothesis. Also, the p value is close to zero
+```{r}
+b = t.test(AirPassengers, mu = 315)
+b
+```
+
+**(e) Construct a 95% confidence interval for the mean.**
+```{r}
+b$conf.int
+```
+

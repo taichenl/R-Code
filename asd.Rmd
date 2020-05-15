@@ -1,0 +1,67 @@
+---
+title: "HW2"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**2.7 (Central Limit Theorem with simulated data). Refer to Example 2.6, where we computed sample means for each row of the randu data frame. Repeat the analysis, but instead of randu, create a matrix of random numbers using runif.**
+
+```{r}
+library(MASS)
+a = runif(5000)
+b = runif(5000)
+c = runif(5000)
+to= cbind(a, b, c)
+Mean = apply(to, MARGIN = 1, FUN=mean)
+truehist(Mean, prob = TRUE) 
+curve(dnorm(x, 1/2, sd=sqrt(1/36)), add=TRUE)
+```
+
+
+**2.8 (Central Limit Theorem, continued). Refer to Example 2.6 and Exercise 2.7, where we computed sample means for each row of the data frame. Repeat the analysis in Exercise 2.7, but instead of sample size 3 generate a matrix that is 400 by 10 (sample size 10). Compare the histogram for sample size 3 and sample size 10. What does the Central Limit Theorem tell us about the distribution of the mean as sample size increases?**
+
+```{r}
+a = runif(50000)
+p = matrix(a, nrow = 5000, ncol = 10)
+Mean = apply(p, MARGIN = 1, FUN=mean)
+truehist(Mean, prob = TRUE) 
+curve(dnorm(x, 1/2, sd=sqrt(1/120)), add=TRUE)
+```
+
+**2.10 (“Old Faithful” histogram). Use hist to display a probability histogram of the waiting times for the Old Faithful geyser in the faithful data set (see Example A.3). (Use the argument prob=TRUE or freq=FALSE.)**
+
+```{r}
+hist(faithful$waiting, prob = TRUE)
+```
+
+**2.11 (“Old Faithful”density estimate). Use hist to display a probability histogram of the waiting times for the Old Faithful geyser in the faithful data set (see Example A.3) and add a density estimate using lines.**
+
+```{r}
+hist(faithful$waiting, prob = TRUE)
+lines(density(faithful$waiting))
+```
+
+**1.9 (Custom standard deviation function). Write a function sd.n similar to the function var.n in Example 1.5 that will return the estimate ˆ (the square root of ˆ 2). Try this function on the temperature data of Example 1.1**
+
+```{r}
+sd.n = function(x){
+  v = var(x)
+  n = NROW(x)
+  sqrt(v*(n-1)/n)
+}
+```
+
+**1.10 (Euclidean norm function). Write a function norm that will compute the Euclidean norm of a numeric vector. The Euclidean norm of a vector x=(x1,...,xn) is i=1 x2 i. Use vectorized operations to compute the sum. Try this function on the vectors (0,0,0,1) and (2,5,2,4) to check that your function result is correct.**
+
+```{r}
+norm = function(x){
+  a = x %*% x
+  sqrt(a)
+}
+norm(c(2,5,2,4))
+```
+
+

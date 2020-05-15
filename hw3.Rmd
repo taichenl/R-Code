@@ -1,0 +1,83 @@
+---
+title: "HW3"
+author: "Jason Li"
+date: "5/13/2020"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**3.1 Fast food eating preference. a)**
+
+```{r}
+##s = scan(what = "character")
+s = c("Wendys", "McDonalds", "Subway" , "Subway", "Subway", "Wendys", "Wendys", "Subway", "Wendys", "Subway", "Subway", "Subway", "Subway", "Subway", "Subway")
+```
+
+**2)**
+
+```{r}
+table(s)
+```
+
+**3)**
+
+```{r}
+table(s)/length(s)
+```
+
+**4)**
+
+```{r}
+plot(table(s)/length(s))
+```
+
+**6.1 Gender of Marathoner a)**
+
+```{r}
+Test = prop.test(12, 375, p = 0.375)
+Test
+```
+
+**b)**
+
+```{r}
+Test$conf.int
+```
+
+**c)**
+
+```{r}
+binom.test(12, 375, p = 0.375)
+```
+
+**6.4 Measuring the length of a strin a)**
+
+```{r}
+##a = scan(what = "character")
+a = c(22, 18, 27, 23, 24, 15, 26, 22, 24, 25, 24, 18, 18, 26, 20, 24, 27, 16, 30, 22, 17, 18, 22, 26)
+```
+
+**b)**
+```{r}
+t.test(a, mu = 26)
+```
+
+**c)**
+
+```{r}
+b = t.test(a, mu = 26, conf.level = 0.9)
+b$conf.int
+```
+
+**d)**
+
+```{r}
+hist(a)
+```
+
